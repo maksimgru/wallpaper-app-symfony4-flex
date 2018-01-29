@@ -1,0 +1,32 @@
+easy_admin:
+    #site_name: 'Admin Area'
+    design:
+        menu:
+            - { label: 'Visit Site', route: 'home', icon: 'home' }
+            - { entity: 'Category' }
+            - { entity: 'Wallpaper', default: true }
+    entities:
+        Category:
+            class: App\Entity\Category
+            form:
+                fields:
+                    - 'name'
+                    - { property: 'cslug', type_options: { required: false } }
+        Wallpaper:
+            class: App\Entity\Wallpaper
+            list:
+                fields:
+                    - 'id'
+                    - 'title'
+                    - 'filename'
+                    - 'slug'
+                    - 'category'
+                    - { property: 'width', format: '%d' }
+                    - { property: 'height', format: '%d' }
+                    - { property: 'image', type: 'image', base_path: "/images/" }
+            form:
+                fields:
+                    - { property: 'file', type: 'App\Form\Type\UploadedFileType', label: 'File' }
+                    - { property: 'title', type_options: { required: false } }
+                    - { property: 'slug', type_options: { required: false } }
+                    - 'category'

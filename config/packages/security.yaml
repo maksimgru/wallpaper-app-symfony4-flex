@@ -1,0 +1,59 @@
+security:
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+        App\Entity\User:
+            algorithm: bcrypt
+
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER]
+
+    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    providers:
+        chain_provider:
+            chain:
+                providers: [in_memory, db_provider]
+        in_memory:
+            memory:
+                users:
+                    admin:
+                        password: $2y$13$kG.2u6RITPR1QhQDhKda8u7g67nm4J4Pd4rL6.GrrDKCm1rYz9BHG
+                        roles: 'ROLE_ADMIN'
+        db_provider:
+            entity:
+                class: App\Entity\User
+                property: username
+
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern: ^/
+            provider: chain_provider
+            form_login:
+                login_path: login
+                check_path: login
+                failure_path: login
+                success_handler: App\Security\AuthenticationSuccessHandler
+                failure_handler: App\Security\AuthenticationFailureHandler
+            logout:
+                target: login
+                #csrf_token_generator: security.csrf.token_manager
+            logout_on_user_change: true
+            anonymous: ~
+            # activate different ways to authenticate
+
+            # http_basic: ~
+            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
+
+            # form_login: ~
+            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/register-form-submission$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/(login|register)$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/contact, role: ROLE_USER }
+        - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }

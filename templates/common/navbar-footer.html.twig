@@ -1,0 +1,26 @@
+{% set currentRoute = app.request.attributes.get('_route') %}
+<nav class="navbar navbar-inverse navbar_footer">
+    <div class="container-fluid">
+
+        <ul class="nav navbar-nav">
+            <li {% if currentRoute == 'home' %} class="active"{% endif %}>
+                <a href="{{ path('home') }}">Home</a>
+            </li>
+            <li {% if currentRoute== 'gallery' %} class="active"{% endif %}>
+                <a href="{{ path('gallery') }}">Gallery</a>
+            </li>
+            <li {% if currentRoute== 'contact' %} class="active"{% endif %}>
+                <a href="{{ path('contact') }}">Contact</a>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="http://www.m-dev.net" title="www.m-dev.net" target="_blank" data-toggle="tooltip" data-placement="top" >
+                    &copy; Created by Maksim Petrenko
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</nav>

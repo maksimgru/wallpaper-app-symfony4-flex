@@ -1,0 +1,22 @@
+{% for image in images %}
+    <article class="col-sm-12 col-md-6 thumb-item">
+        <div class="thumbnail">
+            <a href="{{ path('view', {'slug': image.slug}) }}" class="thumbnail">
+                <img src="/images/{{ image.filename }}" alt="{{ image.slug }}">
+            </a>
+            <div class="caption">
+                <h2><a href="{{ path('view', {'slug': image.slug}) }}">{{ image.title }}</a></h2>
+                <div class="pull-left">
+                    <span class="label label-default">Category:</span>
+                    {% if image.category %}
+                        <a href="{{ path('category', {'cslug': image.category.cslug}) }}">{{ image.category.name }}</a>
+                    {% else %}
+                        <a href="{{ path('category', {'cslug': 'uncategorized'}) }}">Uncategorized</a>
+                    {% endif %}
+                </div>
+                <div class="pull-right"><a href="{{ path('view', {'slug': image.slug}) }}" class="btn btn-primary btn-lg" role="button">View Detail</a></div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </article>
+{% endfor %}

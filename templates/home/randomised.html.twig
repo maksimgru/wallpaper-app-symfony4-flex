@@ -1,0 +1,25 @@
+{% for image in images %}
+    <div class="col-sm-6 col-md-3 thumb-item">
+        <div class="thumbnail">
+            <a href="{{ path('view', {'slug': image.slug}) }}" class="thumbnail">
+                <img src="/images/{{ image.filename }}" alt="{{ image.slug }}">
+            </a>
+            <div class="caption">
+                <h4><a href="{{ path('view', {'slug': image.slug}) }}">{{ image.title }}</a></h4>
+                <div class="pull-left">
+                    <span class="label label-default">Category:</span>
+                    {% if image.category %}
+                        <a href="{{ path('category', {'cslug': image.category.cslug}) }}">{{ image.category.name }}</a>
+                    {% else %}
+                        <a href="{{ path('category', {'cslug': 'uncategorized'}) }}">Uncategorized</a>
+                    {% endif %}
+                </div>
+                <div class="pull-right"><a href="{{ path('view', {'slug': image.slug}) }}" class="btn btn-primary btn-sm" role="button">View Detail</a></div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+    {% if (loop.index >= 4 and (loop.index % 4) == 0 ) %}
+        <div class="clearfix"></div>
+    {% endif %}
+{% endfor %}

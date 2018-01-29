@@ -1,0 +1,44 @@
+{% set currentRoute = app.request.attributes.get('_route') %}
+<nav class="navbar navbar-inverse navbar_header">
+    <div class="container-fluid">
+
+        <div class="navbar-header">
+            <span class="navbar-text">WALLPAPERS</span>
+        </div>
+
+        <ul class="nav navbar-nav">
+            <li {% if currentRoute == 'home' %} class="active"{% endif %}>
+                <a href="{{ path('home') }}">Home</a>
+            </li>
+            <li {% if currentRoute== 'gallery' %} class="active"{% endif %}>
+                <a href="{{ path('gallery') }}">Gallery</a>
+            </li>
+            <li {% if currentRoute== 'contact' %} class="active"{% endif %}>
+                <a href="{{ path('contact') }}">Contact</a>
+            </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            {% if app.user %}
+                <li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('admin') }}"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a>
+                    {% else %}
+                        <a href="#"><span class="glyphicon glyphicon-user"></span> {{ app.user.username }}</a>
+                    {% endif %}
+                </li>
+                <li>
+                    <a href="{{ path('logout') }}"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                </li>
+            {% elseif not app.user %}
+                <li {% if currentRoute == 'registration' %} class="active"{% endif %}>
+                    <a href="{{ path('registration') }}"><span class="glyphicon glyphicon-log-in"></span> Register</a>
+                </li>
+                <li {% if currentRoute == 'login' %} class="active"{% endif %}>
+                    <a href="{{ path('login') }}"><span class="glyphicon glyphicon-log-in"></span> Login</a>
+                </li>
+            {% endif %}
+        </ul>
+
+    </div>
+</nav>

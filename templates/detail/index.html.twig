@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+
+        {% if image %}
+
+            <div class="col-sm-12">
+                <h1 class="text-center">{{ image.title }}</h1>
+                <div class="thumbnail">
+                    <img src="/images/{{ image.filename }}" alt="{{ image.slug }}">
+                    <div class="caption pull-left">
+                        <ul class="list-group">
+                            <li class="list-group-item"><span class="label label-default">Filename:</span> {{ image.filename }}</li>
+                            <li class="list-group-item"><span class="label label-default">Width:</span> {{ image.width }}px</li>
+                            <li class="list-group-item"><span class="label label-default">Height:</span> {{ image.height }}px</li>
+                            <li class="list-group-item">
+                                <span class="label label-default">Category:</span>
+                                {% if image.category %}
+                                    <a href="{{ path('category', {'cslug': image.category.cslug}) }}">{{ image.category.name }}</a>
+                                {% else %}
+                                    <a href="{{ path('category', {'cslug': 'uncategorized'}) }}">Uncategorized</a>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="caption pull-right"><a href="/images/{{ image.filename }}" download class="btn btn-primary btn-lg" role="button">Download</a></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+        {% else %}
+
+            <div class="alert alert-warning text-center" role="alert">
+                No images found for slug: <strong>{{ app.request.attributes.get('_route_params')['slug'] }}</strong>
+            </div>
+
+        {% endif %}
+
+    </div>
+
+{% endblock %}

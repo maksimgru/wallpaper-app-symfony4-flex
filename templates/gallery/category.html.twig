@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+
+        {% if images.items %}
+
+            {% if images.items[0].category %}
+                <h1 class="col-sm-12"><small>Category:</small> {{ images.items[0].category.name }}</h1>
+            {% endif %}
+
+            {% for image in images %}
+                <div class="col-md-4 thumb-item">
+                    <div class="thumbnail">
+                        <a href="{{ path('view', {'slug': image.slug}) }}" class="thumbnail">
+                            <img src="/images/{{ image.filename }}" alt="{{ image.slug }}">
+                        </a>
+                        <div class="caption">
+                            <h3><a href="{{ path('view', {'slug': image.slug}) }}">{{ image.title }}</a></h3>
+                            <div class="pull-left">
+                                <span class="label label-default">Category:</span>
+                                {% if image.category %}
+                                    <a href="{{ path('category', {'cslug': image.category.cslug}) }}">{{ image.category.name }}</a>
+                                {% else %}
+                                    <a href="{{ path('category', {'cslug': 'uncategorized'}) }}">Uncategorized</a>
+                                {% endif %}
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                {% if (loop.index >= 3 and (loop.index % 3) == 0 ) %}
+                    <div class="clearfix"></div>
+                {% endif %}
+            {% endfor %}
+
+        {% else %}
+
+            <div class="alert alert-warning text-center" role="alert">Empty...</div>
+
+        {% endif %}
+
+    </div>
+
+    <div class="navigation text-center">
+        {{ knp_pagination_render(images) }}
+    </div>
+
+{% endblock %}
