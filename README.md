@@ -28,6 +28,7 @@ Run `composer install` in your root directory.
 2. Run `php bin/console doctrine:database:create` to create new database by credentials from .env file.
 3. Run `php bin/console doctrine:migrations:migrate` to run migration process and build database schema according to our doctrine entities.
 4. Run `php bin/console doctrine:fixtures:load` to load demo data fixtures (category, wallpapers images), insert rows in your DB, etc.
+5. Admin User is login `admin`, password `1111`
 
 ## Development server
 Run `composer start` or `php bin/console server:start` for start a dev server. Navigate to `http://localhost:8000/`.

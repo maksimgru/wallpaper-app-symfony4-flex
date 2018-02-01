@@ -3,9 +3,23 @@ easy_admin:
     design:
         menu:
             - { label: 'Visit Site', route: 'home', icon: 'home' }
+            - { entity: 'User' }
             - { entity: 'Category' }
             - { entity: 'Wallpaper', default: true }
     entities:
+        User:
+            class: App\Entity\User
+            controller: App\Controller\EasyAdmin\UserController
+            list:
+                fields:
+                    - 'id'
+                    - 'username'
+                    - 'email'
+            form:
+                fields:
+                    - { property: 'username', type_options: { required: true } }
+                    - { property: 'email', type: 'email', type_options: { required: true } }
+                    - { property: 'plainPassword', type: 'password', label: 'Password', help: 'Leave blank if not changed for update! For new user by default (if is blank) is equl to `Username`.', type_options: { required: false } }
         Category:
             class: App\Entity\Category
             form:

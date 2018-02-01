@@ -217,5 +217,15 @@ class User implements UserInterface, EquatableInterface, \Serializable
         return $this->id === $user->getId();
     }
 
+    /**
+     * This is Description of __toString
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->serialize();
+    }
+
 }
 
