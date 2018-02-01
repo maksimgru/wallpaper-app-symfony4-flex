@@ -1,7 +1,6 @@
 
 ###> symfony/framework-bundle ###
 .env
-.env.dist
 /public/bundles/
 /var/
 /vendor/
@@ -18,5 +17,4 @@
 
 .idea
 .git-credentials
-src/Migrations/
 /public/images/*
