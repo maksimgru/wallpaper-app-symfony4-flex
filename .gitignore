@@ -19,3 +19,4 @@
 .idea
 .git-credentials
 src/Migrations/
+/public/images/*
